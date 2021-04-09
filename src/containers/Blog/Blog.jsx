@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Posts from "../Posts/Posts";
 import NewPost from "../NewPost/NewPost";
 import FullPost from "../FullPost/FullPost";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 
 import "./Blog.css";
 
@@ -39,9 +39,13 @@ class Blog extends Component {
         </header>
         {/* <Route path="/" exact render={() => <Posts />} />
         <Route path="/new-post" render={() => <NewPost />} /> */}
-        <Route path="/" exact component={Posts} />
-        <Route path="/new-post" component={NewPost} />
-        <Route path="/:id" component={FullPost} />
+
+        {/* Switch will only load single matched route */}
+        <Switch>
+          <Route path="/" exact component={Posts} />
+          <Route path="/new-post" component={NewPost} />
+          <Route path="/:id" exact component={FullPost} />
+        </Switch>
         {/* <section>
           <FullPost id={this.state.selectedPostId} />
         </section>
