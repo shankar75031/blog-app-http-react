@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import axios from "../../axios";
 import Post from "../../components/Post/Post";
 import "./Posts.css";
@@ -35,12 +36,14 @@ export default class Posts extends Component {
     if (!this.state.error) {
       posts = this.state.posts.map((post) => {
         return (
-          <Post
-            title={post.title}
-            author={post.author}
-            key={post.id}
-            clicked={() => this.postSelectedHandler(post.id)}
-          />
+          <Link to={"/" + post.id}>
+            <Post
+              title={post.title}
+              author={post.author}
+              key={post.id}
+              clicked={() => this.postSelectedHandler(post.id)}
+            />
+          </Link>
         );
       });
     }
