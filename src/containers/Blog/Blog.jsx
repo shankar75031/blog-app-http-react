@@ -1,4 +1,4 @@
-import React, { Component, Suspense } from "react";
+import React, { Component, Suspense, Redirect } from "react";
 import Posts from "../Posts/Posts";
 // import NewPost from "../NewPost/NewPost";
 import { NavLink, Route, Switch } from "react-router-dom";
@@ -63,9 +63,8 @@ class Blog extends Component {
             />
           ) : null}
           <Route path="/posts" component={Posts} />
-          <Route path="/posts" component={Posts} />
           <Route render={() => <h1>404 Not Found</h1>} />
-          {/* <Redirect from="/" to="/posts" /> */}
+          <Redirect from="/" to="/posts" />
         </Switch>
         {/* <section>
           <FullPost id={this.state.selectedPostId} />
