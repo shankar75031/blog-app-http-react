@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 import "./NewPost.css";
 
@@ -8,6 +9,7 @@ class NewPost extends Component {
     title: "",
     content: "",
     author: "Max",
+    submitted: false,
   };
 
   postDataHandler = () => {
@@ -19,14 +21,27 @@ class NewPost extends Component {
     axios
       .post("/posts/", post)
       .then((res) => {
+        // On pushing the back button will take back to the initial page
+        // this.props.history.push("/posts");
+        // using replace will work similar to <Redirect/> on clicking back it wont bring back to initial page
+        // this.props.history.replace("/posts");
         console.log(res);
+        this.setState({ submitted: true });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        this.setState({ submitted: true });
+        console.log(err);
+      });
   };
 
   render() {
+    let redirect = null;
+    if (this.state.submitted) {
+      redirect = <Redirect to="posts" />;
+    }
     return (
       <div className="NewPost">
+        {redirect}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input
