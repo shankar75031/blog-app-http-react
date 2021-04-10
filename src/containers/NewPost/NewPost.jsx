@@ -21,6 +21,10 @@ class NewPost extends Component {
     axios
       .post("/posts/", post)
       .then((res) => {
+        // On pushing the back button will take back to the initial page
+        // this.props.history.push("/posts");
+        // using replace will work similar to <Redirect/> on clicking back it wont bring back to initial page
+        // this.props.history.replace("/posts");
         console.log(res);
         this.setState({ submitted: true });
       })
