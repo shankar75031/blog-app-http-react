@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import Posts from "../Posts/Posts";
 // import NewPost from "../NewPost/NewPost";
 import { NavLink, Route, Switch } from "react-router-dom";
@@ -8,6 +8,10 @@ import asyncComponent from "../../hoc/asyncComponent";
 const AsyncNewPost = asyncComponent(() => {
   return import("../NewPost/NewPost");
 });
+
+// lazy loading in react from version >16.6
+const NewPost = React.lazy(() => import("../NewPost/NewPost"));
+
 class Blog extends Component {
   state = {
     auth: true,
@@ -48,7 +52,15 @@ class Blog extends Component {
         {/* Switch will only load single matched route */}
         <Switch>
           {this.state.auth ? (
-            <Route path="/new-post" component={AsyncNewPost} />
+            // <Route path="/new-post" component={AsyncNewPost} />
+            <Route
+              path="/new-post"
+              render={() => (
+                <Suspense fallback={<div>Loading...</div>}>
+                  <NewPost />
+                </Suspense>
+              )}
+            />
           ) : null}
           <Route path="/posts" component={Posts} />
           <Route path="/posts" component={Posts} />
