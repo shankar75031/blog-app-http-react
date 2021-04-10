@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import Posts from "../Posts/Posts";
-import NewPost from "../NewPost/NewPost";
-import { NavLink, Redirect, Route, Switch } from "react-router-dom";
-
+// import NewPost from "../NewPost/NewPost";
+import { NavLink, Route, Switch } from "react-router-dom";
 import "./Blog.css";
+import asyncComponent from "../../hoc/asyncComponent";
 
+const AsyncNewPost = asyncComponent(() => {
+  return import("../NewPost/NewPost");
+});
 class Blog extends Component {
   state = {
     auth: true,
@@ -45,7 +48,7 @@ class Blog extends Component {
         {/* Switch will only load single matched route */}
         <Switch>
           {this.state.auth ? (
-            <Route path="/new-post" component={NewPost} />
+            <Route path="/new-post" component={AsyncNewPost} />
           ) : null}
           <Route path="/posts" component={Posts} />
           <Route path="/posts" component={Posts} />
