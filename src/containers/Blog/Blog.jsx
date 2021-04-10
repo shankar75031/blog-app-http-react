@@ -48,7 +48,9 @@ class Blog extends Component {
             <Route path="/new-post" component={NewPost} />
           ) : null}
           <Route path="/posts" component={Posts} />
-          <Redirect from="/" to="/posts" />
+          <Route path="/posts" component={Posts} />
+          <Route render={() => <h1>404 Not Found</h1>} />
+          {/* <Redirect from="/" to="/posts" /> */}
         </Switch>
         {/* <section>
           <FullPost id={this.state.selectedPostId} />
